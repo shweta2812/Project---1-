@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font awesome Icon CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    <title>Enhanced Search Interface</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #8e44ad, #3498db);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            gap: 10px;
+        }
+
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-text {
+            display: flex;
+            align-items: center;
+            background-color: #8e44ad;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-text:hover {
+            background-color: #732d91;
+        }
+
+        .dropdown-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .dropdown-list-item {
+            padding: 10px 15px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-list-item:hover {
+            background-color: #f4f4f4;
+        }
+
+        .dropdown.active .dropdown-list {
+            display: block;
+        }
+
+        /* Search Box Styling */
+        .search-box {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #8e44ad;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: #3498db;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            color: #8e44ad;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .search-box i:hover {
+            color: #3498db;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Search bar start -->
+    <div class="search-bar">
+        <!-- Dropdown start -->
+        <div class="dropdown" id="dropdown">
+            <div id="drop-text" class="dropdown-text">
+                <span id="span">Everything</span>
+                <i id="icon" class="fa-solid fa-chevron-down"></i>
+            </div>
+            <ul id="list" class="dropdown-list">
+                <li class="dropdown-list-item">Software Development</li>
+                <li class="dropdown-list-item">Web Development</li>
+                <li class="dropdown-list-item">Data Analyst</li>
+                <li class="dropdown-list-item">IT Consultant</li>
+                <li class="dropdown-list-item">Network Administrator</li>
+            </ul>
+        </div>
+        <!-- Dropdown ends -->
+
+        <!-- Search Box input Start -->
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search Anything..." />
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <!-- Search Box input ends -->
+    </div>
+    <!-- Search Bar ends -->
+
+    <script>
+        const dropdown = document.getElementById('dropdown');
+        const dropdownText = document.getElementById('drop-text');
+        const dropdownList = document.getElementById('list');
+        const dropdownItems = document.querySelectorAll('.dropdown-list-item');
+
+        dropdownText.addEventListener('click', () => {
+            dropdown.classList.toggle('active');
+        });
+
+        dropdownItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                document.getElementById('span').textContent = item.textContent;
+                dropdown.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+
+</html>
